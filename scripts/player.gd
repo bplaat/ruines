@@ -10,6 +10,8 @@ var bullet = preload("res://scenes/bullet.tscn")
 var aliens_close = 0
 
 func adjust_health(health_adjustment):
+	if health_adjustment > 0:
+		$health_sound.play()
 	health += health_adjustment
 	if health > MAX_HEALTH:
 		health = MAX_HEALTH
@@ -33,7 +35,9 @@ func _process(delta):
 		for i in range(0, aliens_close):
 			if randi() % 3 == 1:
 				damage -= 1
-		adjust_health(damage)
+		if damage < 0:
+			adjust_health(damage)
+			$hurt_sound.play()
 		
 		var movement = Vector2()
 		if Input.is_action_pressed("player_left"):
@@ -51,6 +55,7 @@ func _process(delta):
 			new_bullet.position = position + $gun.position
 			new_bullet.rotation = rotation + $gun.rotation
 			get_node("../bullets").add_child(new_bullet)
+			$shoot_sound.play()
 			$timer.start()
 		
 		$gun.rotation = atan2(get_global_mouse_position().y - position.y, get_global_mouse_position().x - position.x)

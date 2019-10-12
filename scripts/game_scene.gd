@@ -6,10 +6,11 @@ const MAP_HEIGHT = 100
 const TILE_SIZE = 64
 const RUIN_SIZE = 128
 
-const RUIN_COUNT = (MAP_WIDTH * MAP_HEIGHT) / 50
 const OBJECT_COUNT = (MAP_WIDTH * MAP_HEIGHT) / 35
+const RUIN_COUNT = (MAP_WIDTH * MAP_HEIGHT) / 50
 const ALIEN_COUNT = (MAP_WIDTH * MAP_HEIGHT) / 200
 
+var kit = preload("res://scenes/kit.tscn")
 var tree = preload("res://scenes/tree.tscn")
 var bushes = preload("res://scenes/bushes.tscn")
 var rocks = preload("res://scenes/rocks.tscn")
@@ -32,6 +33,12 @@ func _ready():
 	
 	for x in range(0, MAP_WIDTH): 
 			$terrain_tilemap.set_cell(x, MAP_HEIGHT / 2, 1)
+	
+	for i in range(0, RUIN_COUNT):
+		var new_kit = kit.instance()
+		new_kit.position.x = (randi() % ((MAP_WIDTH - 2) * TILE_SIZE)) + TILE_SIZE / 2
+		new_kit.position.y = (randi() % ((MAP_HEIGHT - 2) * TILE_SIZE)) + TILE_SIZE / 2
+		$objects.add_child(new_kit)
 	
 	for i in range(0, OBJECT_COUNT):
 		var new_tree = tree.instance()

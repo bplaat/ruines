@@ -6,6 +6,8 @@ const MAX_HEALTH = 50
 var health = MAX_HEALTH
 
 func adjust_health(health_adjustment):
+	if health_adjustment < 0:
+		$hit_sound.play()
 	health += health_adjustment
 	if health > MAX_HEALTH:
 		health = MAX_HEALTH

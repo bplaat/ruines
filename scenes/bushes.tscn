@@ -1,8 +1,9 @@
-[gd_scene load_steps=5 format=2]
+[gd_scene load_steps=6 format=2]
 
 [ext_resource path="res://scripts/object.gd" type="Script" id=1]
 [ext_resource path="res://scenes/health_bar.tscn" type="PackedScene" id=2]
 [ext_resource path="res://sprites/bushes.png" type="Texture" id=3]
+[ext_resource path="res://sounds/explosion.wav" type="AudioStream" id=4]
 
 [sub_resource type="CircleShape2D" id=1]
 radius = 24.2796
@@ -21,3 +22,6 @@ texture = ExtResource( 3 )
 [node name="collision" type="CollisionShape2D" parent="."]
 position = Vector2( 1, 7 )
 shape = SubResource( 1 )
+
+[node name="explosion_sound" type="AudioStreamPlayer" parent="."]
+stream = ExtResource( 4 )

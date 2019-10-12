@@ -7,7 +7,6 @@
 [ext_resource path="res://fonts/title_font.tres" type="DynamicFont" id=5]
 
 [node name="game_scene" type="Node2D"]
-editor/display_folded = true
 script = ExtResource( 1 )
 
 [node name="terrain_tilemap" type="TileMap" parent="."]
@@ -24,7 +23,6 @@ position = Vector2( 1920, 912 )
 [node name="bullets" type="Node2D" parent="."]
 
 [node name="timer" type="Timer" parent="."]
-wait_time = 2.5
 one_shot = true
 autostart = true
 
@@ -47,9 +45,9 @@ text = "Health: 100%"
 valign = 1
 
 [node name="score_label" type="Label" parent="ui/bar"]
-margin_left = 448.0
+margin_left = 528.0
 margin_top = 16.0
-margin_right = 880.0
+margin_right = 960.0
 margin_bottom = 80.0
 rect_pivot_offset = Vector2( 328.671, -12.8297 )
 custom_fonts/font = ExtResource( 4 )
