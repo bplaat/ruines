@@ -1,9 +1,10 @@
-[gd_scene load_steps=6 format=2]
+[gd_scene load_steps=7 format=2]
 
 [ext_resource path="res://scripts/object.gd" type="Script" id=1]
 [ext_resource path="res://scenes/health_bar.tscn" type="PackedScene" id=2]
 [ext_resource path="res://sprites/rocks.png" type="Texture" id=3]
-[ext_resource path="res://sounds/explosion.wav" type="AudioStream" id=4]
+[ext_resource path="res://sounds/hit.wav" type="AudioStream" id=4]
+[ext_resource path="res://sounds/explosion.wav" type="AudioStream" id=5]
 
 [sub_resource type="ConvexPolygonShape2D" id=1]
 
@@ -23,5 +24,9 @@ position = Vector2( -0.0284767, 11.2635 )
 scale = Vector2( 4, 4 )
 shape = SubResource( 1 )
 
-[node name="explosion_sound" type="AudioStreamPlayer" parent="."]
+[node name="hit_sound" type="AudioStreamPlayer" parent="."]
 stream = ExtResource( 4 )
+
+[node name="explosion_sound" type="AudioStreamPlayer" parent="."]
+stream = ExtResource( 5 )
+[connection signal="finished" from="explosion_sound" to="." method="_on_explosion_sound_finished"]

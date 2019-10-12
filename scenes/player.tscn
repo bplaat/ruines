@@ -1,4 +1,4 @@
-[gd_scene load_steps=10 format=2]
+[gd_scene load_steps=11 format=2]
 
 [ext_resource path="res://scripts/player.gd" type="Script" id=1]
 [ext_resource path="res://scenes/health_bar.tscn" type="PackedScene" id=2]
@@ -7,13 +7,14 @@
 [ext_resource path="res://sounds/shoot.wav" type="AudioStream" id=5]
 [ext_resource path="res://sounds/health.wav" type="AudioStream" id=6]
 [ext_resource path="res://sounds/hurt.wav" type="AudioStream" id=7]
+[ext_resource path="res://sounds/explosion.wav" type="AudioStream" id=8]
 
 [sub_resource type="CapsuleShape2D" id=1]
 radius = 18.8689
 height = 20.8162
 
 [sub_resource type="CircleShape2D" id=2]
-radius = 49.3332
+radius = 41.9681
 
 [node name="player" type="KinematicBody2D"]
 script = ExtResource( 1 )
@@ -24,9 +25,6 @@ margin_top = -32.0
 margin_bottom = -28.0
 
 [node name="sprite" type="Sprite" parent="."]
-texture = ExtResource( 3 )
-
-[node name="sprite2" type="Sprite" parent="."]
 texture = ExtResource( 3 )
 
 [node name="gun" type="Sprite" parent="."]
@@ -46,6 +44,7 @@ drag_margin_v_enabled = false
 [node name="damage_area" type="Area2D" parent="."]
 
 [node name="collision" type="CollisionShape2D" parent="damage_area"]
+position = Vector2( 0, 2 )
 shape = SubResource( 2 )
 
 [node name="timer" type="Timer" parent="."]
@@ -61,5 +60,9 @@ stream = ExtResource( 6 )
 
 [node name="hurt_sound" type="AudioStreamPlayer" parent="."]
 stream = ExtResource( 7 )
+
+[node name="explosion_sound" type="AudioStreamPlayer" parent="."]
+stream = ExtResource( 8 )
 [connection signal="body_entered" from="damage_area" to="." method="_on_damage_area_body_entered"]
 [connection signal="body_exited" from="damage_area" to="." method="_on_damage_area_body_exited"]
+[connection signal="finished" from="hurt_sound" to="." method="_on_hurt_sound_finished"]

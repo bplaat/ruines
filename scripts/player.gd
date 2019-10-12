@@ -1,13 +1,14 @@
 extends KinematicBody2D
 
-const MOVE_SPEED = 200
+const MOVE_SPEED = 150
 
-const MAX_HEALTH = 200
+const MAX_HEALTH = 150
 var health = MAX_HEALTH
 
 var bullet = preload("res://scenes/bullet.tscn")
 
 var aliens_close = 0
+var hurt_playing = false
 
 func adjust_health(health_adjustment):
 	if health_adjustment > 0:
@@ -19,6 +20,8 @@ func adjust_health(health_adjustment):
 	$health_bar.set_health(health, MAX_HEALTH)
 	get_node("../ui/bar/health_label").text = str("Health: ", round((float(health) / MAX_HEALTH) * 100), "%")
 	if health <= 0:
+		visible = false
+		$explosion_sound.play()
 		get_node("../ui/gameover_popup").visible = true
 
 func _on_damage_area_body_entered(body):
@@ -37,7 +40,9 @@ func _process(delta):
 				damage -= 1
 		if damage < 0:
 			adjust_health(damage)
-			$hurt_sound.play()
+			if !hurt_playing:
+				hurt_playing = true
+				$hurt_sound.play()
 		
 		var movement = Vector2()
 		if Input.is_action_pressed("player_left"):
@@ -60,6 +65,11 @@ func _process(delta):
 		
 		$gun.rotation = atan2(get_global_mouse_position().y - position.y, get_global_mouse_position().x - position.x)
 		if $gun.rotation > PI / 2 or $gun.rotation < -PI / 2:
+			$sprite.scale.x = 1
 			$gun.scale.y = -1
 		else:
+			$sprite.scale.x = -1
 			$gun.scale.y = 1
+
+func _on_hurt_sound_finished():
+	hurt_playing = false

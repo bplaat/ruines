@@ -15,7 +15,7 @@ func _on_bullet_body_entered(body):
 		"church" in body.get_name() or
 		"alien" in body.get_name()
 	):
-		body.adjust_health(-randi() % 15 - 10)
+		body.adjust_health(-randi() % 20 - 5)
 	if body.get_name() != "player":
 		queue_free()
 
